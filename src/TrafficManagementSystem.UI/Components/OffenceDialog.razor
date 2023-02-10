@@ -1,0 +1,86 @@
+﻿
+<EditForm Model="OffenceModel" OnValidSubmit="SubmitAsync">
+    <DataAnnotationsValidator />
+    <MudDialog>
+        <TitleContent>
+            @{
+                if (OffenceModel.Id == null)
+                {
+                    <MudText Typo="Typo.h6">
+                        <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1" />
+                        Add Offence
+                    </MudText>
+                }
+                else
+                {
+                    <MudText Typo="Typo.h6">
+                        <MudIcon Icon="@Icons.Material.Filled.Update" Class="mr-3 mb-n1" />
+                        Update Offence
+                    </MudText>
+                }
+            }
+        </TitleContent>
+        <DialogContent>
+            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Offender Name" @bind-Value="OffenceModel.OffenderName" For="@(() => OffenceModel.OffenderName)" />
+            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Plate Number" @bind-Value="OffenceModel.PlateNumber" For="@(() => OffenceModel.PlateNumber)" />
+            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="License Number" @bind-Value="OffenceModel.LicenseNo" For="@(() => OffenceModel.LicenseNo)" />
+            <MudSelect Class="my-3"
+                       Variant="@AppConstants.Designs.InputTextVariant"
+                       Label="Offence Code" @bind-Value="OffenceModel.OffenceTypeCode"
+                       For="@(() => OffenceModel.OffenceTypeCode)"
+                       Immediate="true">
+                @foreach (var offenceType in offenceTypes)
+                {
+                    <MudSelectItem Value="@offenceType.Code">@offenceType.Name</MudSelectItem>
+                }
+            </MudSelect>
+        </DialogContent>
+        <DialogActions>
+            <MudButton Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit" Color="Color.Primary">Submit</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+
+@code {
+
+
+    private string offenceCodeValue { get; set; } = "Nothing selected";
+
+    [Parameter]
+    public NewOffenceRequest OffenceModel { get; set; } = new();
+
+    [CascadingParameter]
+    public MudDialogInstance? MudDialog { get; set; }
+    List<string> offenceCodes = new List<string>();
+    List<OffenceTypeDto> offenceTypes = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        offenceTypes = await _offenceTypeManager.GetOffenceTypes();
+    }
+
+    private void Cancel()
+    {
+        MudDialog?.Cancel();
+    }
+
+    async Task SubmitAsync()
+    {
+        _appStateManager.IsBusy = true;
+        var response = await _offenceManager.AddOffence(OffenceModel);
+        _appStateManager.IsBusy = false;
+        if (response.Succeeded)
+        {
+            if (OffenceModel.Id == null)
+                _snackbar.Add("Offence created!", Severity.Success);
+            else
+                _snackbar.Add("Offence modified!", Severity.Success);
+            MudDialog?.Close();
+        }
+        else
+        {
+            response.ShowFailureMessages(_snackbar);
+        }
+    }
+}

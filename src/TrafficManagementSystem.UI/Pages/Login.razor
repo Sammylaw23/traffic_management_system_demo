@@ -1,0 +1,74 @@
+﻿@page "/login"
+@using Microsoft.AspNetCore.Authorization
+@using TrafficManagementSystem.Application.DTOs.User
+@layout MainLayout
+@attribute [AllowAnonymous]
+@inject IAuthenticationManager _authenticationManager
+
+<MudText Typo="Typo.h6" GutterBottom="true" Align="Align.Center">Sign In</MudText>
+
+<EditForm Model="loginModel" OnValidSubmit="SubmitAsync">
+    <DataAnnotationsValidator />
+    <MudCard>
+        <MudCardContent>
+            <MudTextField Class="my-6" Variant="Variant.Outlined" T="string" Label="E-mail" @bind-Value="loginModel.Email" For="@(() => loginModel.Email)" />
+
+            <MudTextField Label="Password"
+                          Variant="Variant.Outlined"
+                          @bind-Value="loginModel.Password"
+                          For="@(() => loginModel.Password)"
+                          InputType="@passwordInputType"
+                          Adornment="Adornment.End"
+                          AdornmentIcon="@passwordInputIcon"
+                          OnAdornmentClick="TogglePasswordVisibility" />
+        </MudCardContent>
+        <MudCardActions Class="pa-4 mb-5">
+            <MudButton Class="mb-4" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Size="Size.Large" Color="Color.Primary" FullWidth="true">Sign In</MudButton>
+        </MudCardActions>
+    </MudCard>
+</EditForm>
+
+@code {
+
+    AuthenticationRequest loginModel = new();
+    bool passwordVisibility;
+    string passwordInputIcon = Icons.Material.Filled.VisibilityOff;
+    InputType passwordInputType = InputType.Password;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        AuthenticationState authenticationState = await _authStateProvider.GetAuthenticationStateAsync();
+        if (authenticationState != AppAuthenticationStateProvider.Anonymous)
+        {
+            _navigationManager.NavigateTo("/dashboard");
+        }
+    }
+
+    async Task SubmitAsync()
+    {
+        _appStateManager.IsBusy = true;
+        var response = await _authenticationManager.Login(loginModel);
+        _appStateManager.IsBusy = false;
+        if (!response.Succeeded)
+        {
+            response.ShowFailureMessages(_snackbar);
+        }
+    }
+
+    void TogglePasswordVisibility()
+    {
+        if (passwordVisibility)
+        {
+            passwordVisibility = false;
+            passwordInputIcon = Icons.Material.Filled.VisibilityOff;
+            passwordInputType = InputType.Password;
+        }
+        else
+        {
+            passwordVisibility = true;
+            passwordInputIcon = Icons.Material.Filled.Visibility;
+            passwordInputType = InputType.Text;
+        }
+    }
+}

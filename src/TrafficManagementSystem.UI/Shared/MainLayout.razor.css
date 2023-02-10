@@ -1,0 +1,16 @@
+﻿.wrapper {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 25px;
+    /*background-image: linear-gradient(to top, #e2ebf0 0%, #e2ebf0 100%);*/
+
+    /*background: transparent url('wp1919680.jpg') 0% 0% no-repeat padding-box;*/
+    /*background: transparent url('danfo-nircle-dot-com.jpg') 0% 0% no-repeat padding-box;*/
+    /*background: transparent url('lastma.jpg') 0% 0% no-repeat padding-box;*/
+    background: transparent url('social.jpg') 0% 0% no-repeat padding-box;
+
+    background-position: center;
+    background-size: cover;
+}

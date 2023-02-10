@@ -1,0 +1,43 @@
+﻿@page "/"
+@page "/dashboard"
+
+
+<MudCarousel Class="mud-width-full" Style="height:600px;justify-content:center" TData="object">
+    <MudCarouselItem Transition="transition">
+        <div class="d-flex" style="height:100%">
+            <MudImage Fluid="true" Src="images/danfo.jpg" Alt="Image" Class="rounded-lg" />
+        </div>
+    </MudCarouselItem>
+    <MudCarouselItem Transition="transition">
+        <div class="d-flex" style="height:100%">
+            <MudImage Fluid="true" Src="images/danfo.jpeg" Alt="Image" Class="rounded-lg" />
+        </div>
+    </MudCarouselItem>
+    <MudCarouselItem Transition="transition">
+        <div class="d-flex" style="height:100%">
+            <MudImage Fluid="true" Src="images/lastma.jpg" Alt="Image" Class="rounded-lg" />
+        </div>
+    </MudCarouselItem>
+    <MudCarouselItem Transition="transition">
+        <div class="d-flex" style="height:100%">
+            <MudImage Fluid="true" Src="images/home.jpg" Alt="Image" Class="rounded-lg" />
+        </div>
+    </MudCarouselItem>
+    <MudCarouselItem Transition="transition">
+        <div class="d-flex" style="height:100%">
+            <MudImage Fluid="true" Src="images/eric_stoner1.jpg" Alt="Image" Class="rounded-lg" />
+        </div>
+    </MudCarouselItem>
+    <MudCarouselItem Transition="transition">
+        <div class="d-flex" style="height:100%">
+            <MudImage Fluid="true" Src="images/eric_stoner2.jpg" Alt="Image" Class="rounded-lg" />
+        </div>
+    </MudCarouselItem>
+</MudCarousel>
+
+
+@code {
+
+    private Transition transition = Transition.Fade;
+}
+

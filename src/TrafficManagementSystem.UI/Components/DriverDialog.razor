@@ -1,0 +1,105 @@
+﻿
+<EditForm Model="DriverModel" OnValidSubmit="SubmitAsync">
+    <DataAnnotationsValidator />
+    <MudDialog>
+        <TitleContent>
+            @{
+                if (DriverModel.Id == null)
+                {
+                    <MudText Typo="Typo.h6">
+                        <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1" />
+                        Add Driver
+                    </MudText>
+                }
+                else
+                {
+                    <MudText Typo="Typo.h6">
+                        <MudIcon Icon="@Icons.Material.Filled.Update" Class="mr-3 mb-n1" />
+                        Update Driver
+                    </MudText>
+                }
+            }
+        </TitleContent>
+        <DialogContent>
+            <MudGrid Spacing="1" Justify="Justify.Center">
+                <MudItem xs="12">
+                    <MudTextField Variant="@AppConstants.Designs.InputTextVariant" Label="First Name" @bind-Value="DriverModel.FirstName" For="@(() => DriverModel.FirstName)" />
+                </MudItem>
+                <MudItem xs="12">
+                    <MudTextField Variant="@AppConstants.Designs.InputTextVariant" Label="Last Name" @bind-Value="DriverModel.LastName" For="@(() => DriverModel.LastName)" />
+                </MudItem>
+                <MudItem xs="12">
+                    <MudTextField Variant="@AppConstants.Designs.InputTextVariant" Label="Phone Number" @bind-Value="DriverModel.PhoneNumber" For="@(() => DriverModel.PhoneNumber)" />
+                </MudItem>
+                <MudItem xs="12">
+                    <MudTextField Variant="@AppConstants.Designs.InputTextVariant" Label="Email" @bind-Value="DriverModel.Email" For="@(() => DriverModel.Email)" />
+                </MudItem>
+                <MudItem xs="12">
+                    <MudTextField Variant="@AppConstants.Designs.InputTextVariant" Label="License Number" @bind-Value="DriverModel.LicenseNo" For="@(() => DriverModel.LicenseNo)" />
+                </MudItem>
+                <MudItem xs="12" md="6">
+                    <MudSelect Label="Gender"
+                               T="char?"
+                               Strict="true"
+                               Variant="@AppConstants.Designs.InputTextVariant"
+                               @bind-Value="DriverModel.Gender"
+                               For="@(() => DriverModel.Gender)">
+
+                        <MudSelectItem Value="@male"> Male</MudSelectItem>
+                        <MudSelectItem Value="@female"> Female</MudSelectItem>
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="12" md="6">
+                    <MudDatePicker Label="Date of Birth"
+                                   @bind-Date="DriverModel.DateOfBirth"
+                                   DisableToolbar="true"
+                                   MaxDate="@(DateTime.UtcNow.AddYears(-18))"
+                                   MinDate="@(DateTime.UtcNow.AddYears(-80))"
+                                   OpenTo="@(OpenTo.Year)"
+                                   DateFormat="dd/MM/yyyy"
+                                   For="@(() => DriverModel.DateOfBirth)" />
+                </MudItem>
+
+            </MudGrid>
+
+        </DialogContent>
+        <DialogActions>
+            <MudButton Variant="@AppConstants.Designs.ButtonVariant" OnClick="Cancel">Cancel</MudButton>
+            <MudButton Variant="@AppConstants.Designs.ButtonVariant" ButtonType="ButtonType.Submit" Color="Color.Primary">Submit</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+
+@code {
+
+    [Parameter] public NewDriverRequest DriverModel { get; set; } = new();
+
+    [CascadingParameter]
+    public MudDialogInstance? MudDialog { get; set; }
+
+    char? male = 'M';
+    char? female = 'F';
+    private void Cancel()
+    {
+        MudDialog?.Cancel();
+    }
+
+    async void SubmitAsync()
+    {
+        _appStateManager.IsBusy = true;
+        var response = await _driverManager.AddDriver(DriverModel);
+        _appStateManager.IsBusy = false;
+        if (response.Succeeded)
+        {
+            if (DriverModel.Id == null)
+                _snackbar.Add("Driver created!", Severity.Success);
+            else
+                _snackbar.Add("Driver modified!", Severity.Success);
+            MudDialog?.Close();
+        }
+        else
+        {
+            response.ShowFailureMessages(_snackbar);
+        }
+    }
+}

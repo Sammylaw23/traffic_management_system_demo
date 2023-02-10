@@ -1,0 +1,38 @@
+﻿
+<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <NotAuthorized>
+                    <RedirectToLogin />
+                </NotAuthorized>
+            </AuthorizeRouteView>
+        </Found>
+        <NotFound>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p>Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>
+
+<MudThemeProvider Theme="@theme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+
+@code {
+
+
+    MudTheme theme = new MudTheme
+        {
+            Palette = new Palette
+            {
+                Primary = new MudBlazor.Utilities.MudColor("#120826"),
+                Secondary = new MudBlazor.Utilities.MudColor("#FF6600"),
+                AppbarBackground = new MudBlazor.Utilities.MudColor("#120826"),
+                Background = new MudBlazor.Utilities.MudColor("#F1F3F4")
+
+            }
+        };
+}

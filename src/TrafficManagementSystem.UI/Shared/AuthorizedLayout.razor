@@ -1,0 +1,8 @@
+﻿@implements IAsyncDisposable
+@inject IConfiguration configuration
+@inject ILocalStorageService localStorage
+
+
+<CascadingValue Value="HubConnection">
+    @ChildContent
+</CascadingValue>

@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrafficManagementSystem.Domain", "src\TrafficManagementSystem.Domain\TrafficManagementSystem.Domain.csproj", "{7DC5F3F9-D4C6-449C-962D-6772F78BB073}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E69989C3-7DB9-47FE-AFA9-1CC86094BBD8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{2EFA21FA-DA51-4ADC-AC64-A226D1B7B91E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrafficManagementSystem.Infrastructure", "src\TrafficManagementSystem.Infrastructure\TrafficManagementSystem.Infrastructure.csproj", "{5C897103-081E-402A-8594-F6267116FB72}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrafficManagementSystem.UI", "src\TrafficManagementSystem.UI\TrafficManagementSystem.UI.csproj", "{75A87D0F-DA5E-4393-BAD0-CA422300583B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrafficManagementSystem.Application", "TrafficManagementSystem.Application\TrafficManagementSystem.Application.csproj", "{4512FADA-C510-4BBC-BCBD-EA27DEEB60AA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrafficManagementSystem.API", "src\TrafficManagementSystem.API\TrafficManagementSystem.API.csproj", "{DF0C69DD-DFB3-4BA6-A7CA-A53B24FEE4AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7DC5F3F9-D4C6-449C-962D-6772F78BB073}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DC5F3F9-D4C6-449C-962D-6772F78BB073}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DC5F3F9-D4C6-449C-962D-6772F78BB073}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DC5F3F9-D4C6-449C-962D-6772F78BB073}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C897103-081E-402A-8594-F6267116FB72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C897103-081E-402A-8594-F6267116FB72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C897103-081E-402A-8594-F6267116FB72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C897103-081E-402A-8594-F6267116FB72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75A87D0F-DA5E-4393-BAD0-CA422300583B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75A87D0F-DA5E-4393-BAD0-CA422300583B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75A87D0F-DA5E-4393-BAD0-CA422300583B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75A87D0F-DA5E-4393-BAD0-CA422300583B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4512FADA-C510-4BBC-BCBD-EA27DEEB60AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4512FADA-C510-4BBC-BCBD-EA27DEEB60AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4512FADA-C510-4BBC-BCBD-EA27DEEB60AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4512FADA-C510-4BBC-BCBD-EA27DEEB60AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF0C69DD-DFB3-4BA6-A7CA-A53B24FEE4AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF0C69DD-DFB3-4BA6-A7CA-A53B24FEE4AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF0C69DD-DFB3-4BA6-A7CA-A53B24FEE4AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF0C69DD-DFB3-4BA6-A7CA-A53B24FEE4AD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7DC5F3F9-D4C6-449C-962D-6772F78BB073} = {E69989C3-7DB9-47FE-AFA9-1CC86094BBD8}
+		{5C897103-081E-402A-8594-F6267116FB72} = {E69989C3-7DB9-47FE-AFA9-1CC86094BBD8}
+		{75A87D0F-DA5E-4393-BAD0-CA422300583B} = {E69989C3-7DB9-47FE-AFA9-1CC86094BBD8}
+		{4512FADA-C510-4BBC-BCBD-EA27DEEB60AA} = {E69989C3-7DB9-47FE-AFA9-1CC86094BBD8}
+		{DF0C69DD-DFB3-4BA6-A7CA-A53B24FEE4AD} = {E69989C3-7DB9-47FE-AFA9-1CC86094BBD8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {94CBB268-57D6-4E42-A7A5-C62DBB6497CC}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,75 @@
+﻿@page "/drivers"
+
+<HeroTitle Title="Drivers" Description="Manage Drivers Detail" />
+<MudTable Items="@drivers" Hover="true" Striped="true" Filter="new Func<DriverDto,bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1">
+    <ToolBarContent>
+        <MudHidden Breakpoint="Breakpoint.Xs">
+
+            <MudButton DisableElevation Variant="Variant.Filled"
+                       OnClick="(()=> InvokeDriverDialog())"
+                       Color="Color.Primary"
+                       StartIcon="@Icons.Material.Filled.PersonAdd"
+                       IconColor="Color.Surface">
+                Add Driver
+            </MudButton>
+            @*<MudButton DisableElevation Variant="Variant.Filled"
+                       OnClick="@(()=> DownloadDriverExcel(drivers))"
+                       Color="Color.Primary"
+                       StartIcon="@Icons.Material.Filled.PersonAdd"
+                       IconColor="Color.Surface">
+                Download Excel
+            </MudButton>*@
+            <MudSpacer />
+        </MudHidden>
+
+        <MudTextField @bind-Value="searchString"
+                      Immediate="true"
+                      Placeholder="Search"
+                      Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search"
+                      IconSize="Size.Medium" />
+
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>First Name</MudTh>
+        <MudTh>Last Name</MudTh>
+        <MudTh>Email</MudTh>
+        <MudTh>Phone Number</MudTh>
+        <MudTh>Date of Birth</MudTh>
+        <MudTh>Gender</MudTh>
+        <MudTh>License</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="First Name">@context.FirstName</MudTd>
+        <MudTd DataLabel="Last Name">@context.LastName</MudTd>
+        <MudTd DataLabel="Email">@context.Email</MudTd>
+        <MudTd DataLabel="Phone Number">@context.PhoneNumber</MudTd>
+        <MudTd DataLabel="Date of Birth">@context.DateOfBirth.ToString("dd/MM/yyyy")</MudTd>
+        <MudTd DataLabel="Gender">@context.Gender</MudTd>
+        <MudTd DataLabel="License">@context.LicenseNo        </MudTd>
+        <MudTd DataLabel="Actions" Style="text-align: right">
+
+            <MudMenu Label="Actions" Variant="Variant.Filled" DisableElevation="true" EndIcon="@Icons.Filled.KeyboardArrowDown" IconColor="Color.Secondary" Direction="Direction.Left" OffsetX="true">
+                <MudMenuItem @onclick="@(() => InvokeDriverDialog(context.Id))">Edit Driver</MudMenuItem>
+                <MudMenuItem @onclick="@(() => DeleteDriver(context))">Delete</MudMenuItem>
+
+            </MudMenu>
+
+        </MudTd>
+
+
+    </RowTemplate>
+</MudTable>
+
+@*@code {
+    MemoryStream excelStream;
+
+    /// <summary>
+    /// Create and download the Excel document.
+    /// </summary>
+    protected async void CreateDocument()
+    {
+        excelStream = service.CreateExcel();
+        await JS.SaveAs("Sample.xlsx", excelStream.ToArray());
+    }
+}*@

@@ -1,0 +1,68 @@
+﻿
+<EditForm Model="OffenceTypeModel" OnValidSubmit="SubmitAsync">
+    <DataAnnotationsValidator />
+    <MudDialog>
+        <TitleContent>
+            @{
+                if (OffenceTypeModel.Id == null)
+                {
+                    <MudText Typo="Typo.h6">
+                        <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1" />
+                        Add Offence Type
+                    </MudText>
+                }
+                else
+                {
+                    <MudText Typo="Typo.h6">
+                        <MudIcon Icon="@Icons.Material.Filled.Update" Class="mr-3 mb-n1" />
+                        Update Offence Type
+                    </MudText>
+                }
+            }
+        </TitleContent>
+        <DialogContent>
+            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Offence Name" @bind-Value="OffenceTypeModel.Name" For="@(() => OffenceTypeModel.Name)" />
+            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Point" @bind-Value="OffenceTypeModel.Point" For="@(() => OffenceTypeModel.Point)" />
+            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Fine Amount" @bind-Value="OffenceTypeModel.FineAmount" For="@(() => OffenceTypeModel.FineAmount)" />
+            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Category" @bind-Value="OffenceTypeModel.Category" For="@(() => OffenceTypeModel.Category)" />
+            <MudTextField Class="my-3" Variant="Variant.Outlined" Label="Offence Code" @bind-Value="OffenceTypeModel.Code" For="@(() => OffenceTypeModel.Code)" />
+        </DialogContent>
+        <DialogActions>
+            <MudButton Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit" Color="Color.Primary">Submit</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+
+@code {
+
+    [Parameter] public NewOffenceTypeRequest OffenceTypeModel { get; set; } = new();
+
+    [CascadingParameter]
+    public MudDialogInstance? MudDialog { get; set; }
+
+    private void Cancel()
+    {
+        MudDialog?.Cancel();
+    }
+
+    async Task SubmitAsync()
+    {
+        //_appStateManager.IsBusy = true;
+        var response = await _offenceTypeManager.AddOffenceType(OffenceTypeModel);
+        //_appStateManager.IsBusy = false;
+        if (response.Succeeded)
+        {
+            if (OffenceTypeModel.Id == null)
+                _snackbar.Add("Offence-Type created!", Severity.Success);
+            else
+                _snackbar.Add("Offence-Type modified!", Severity.Success);
+
+            MudDialog?.Close();
+        }
+        else
+        {
+            response.ShowFailureMessages(_snackbar);
+        }
+    }
+}

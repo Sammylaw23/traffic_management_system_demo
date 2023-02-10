@@ -1,0 +1,66 @@
+﻿@inherits LayoutComponentBase
+@implements IDisposable
+@inject IJSRuntime jsRuntime
+@inject IAuthenticationManager _authenticationManager
+@inject ApiInterceptor _apiInterceptor
+<MudLayout>
+    <AuthorizeView>
+        <NotAuthorized>
+            <div class="wrapper">
+                <MudPaper Elevation="25" Class="justify-center pa-8" Width="100%" MaxWidth="400px">
+                    <MudText Typo="Typo.h5" GutterBottom="true" Align="Align.Center">Traffic Management System</MudText>
+                    @Body
+                </MudPaper>
+            </div>
+        </NotAuthorized>
+        <Authorized>
+            <MudAppBar Elevation="1">
+                <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+                <MudText Typo="Typo.h5" Class="ml-3" Color="Color.Secondary">Traffic Management System</MudText>
+                <MudSpacer />
+                <UserNavCard OnLogoutClick="LogoutClicked" />
+            </MudAppBar>
+            <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+                <NavMenu />
+            </MudDrawer>
+            <MudMainContent>
+                <MudContainer Class="mt-10 mb-13 px-8" MaxWidth="MaxWidth.False">
+                    <AuthorizedLayout>
+                        @Body
+                    </AuthorizedLayout>
+                </MudContainer>
+            </MudMainContent>
+        </Authorized>
+    </AuthorizeView>
+</MudLayout>
+<MudOverlay Visible="_appStateManager.IsBusy" LightBackground="true" Absolute="true">
+    <MudProgressCircular Color="Color.Info" Indeterminate="true" />
+</MudOverlay>
+
+@code {
+    bool _drawerOpen = true;
+    string[] _anonymousPages = new string[] { "login", "/" };
+
+    protected override void OnInitialized()
+    {
+        _appStateManager.OnChange += StateHasChanged;
+        _apiInterceptor.RegisterEvent();
+    }
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+ 
+
+    async Task LogoutClicked()
+    {
+        await _authenticationManager.Logout();
+    }
+
+    public void Dispose()
+    {
+        _appStateManager.OnChange -= StateHasChanged;
+        _apiInterceptor.DisposeEvent();
+    }
+}

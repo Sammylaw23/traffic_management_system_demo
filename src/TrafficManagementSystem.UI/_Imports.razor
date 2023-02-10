@@ -1,0 +1,38 @@
+﻿@using System.Net.Http
+@using System.Net.Http.Json
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.AspNetCore.Components.WebAssembly.Http
+@using Microsoft.JSInterop
+@using TrafficManagementSystem.UI
+@using TrafficManagementSystem.UI.Infrastructure.Authentication
+@using TrafficManagementSystem.UI.Shared
+@using MudBlazor
+@using TrafficManagementSystem.UI.Components
+@using TrafficManagementSystem.Application.DTOs.Driver
+@using TrafficManagementSystem.Application.DTOs.Offence
+@using TrafficManagementSystem.Application.DTOs.OffenceType
+@using TrafficManagementSystem.Application.DTOs.Vehicle
+@using TrafficManagementSystem.UI.Infrastructure.Constants
+@using Blazored.LocalStorage
+@using Microsoft.AspNetCore.SignalR
+@using TrafficManagementSystem.UI.Infrastructure.Extensions
+@using Microsoft.AspNetCore.Components.Authorization
+@using TrafficManagementSystem.UI.Infrastructure.Managers
+
+@inject NavigationManager _navigationManager
+@inject ISnackbar _snackbar
+@inject IDialogService _dialogService
+
+@inject IDriverManager _driverManager
+@inject IVehicleManager _vehicleManager
+@inject IOffenceTypeManager _offenceTypeManager
+@inject IOffenceManager _offenceManager
+@inject AppStateManager _appStateManager
+@inject AppAuthenticationStateProvider _authStateProvider
+
+
+@attribute [Authorize]

@@ -1,0 +1,28 @@
+﻿<MudMenu Direction="Direction.Left" OffsetX="true" Dense="true" Class="mt-1 my-5" ActivationEvent="@MouseEvent.LeftClick">
+    <ActivatorContent>
+        <MudIcon Icon="@Icons.Material.Filled.AccountCircle" Size="Size.Medium" Color="Color.Inherit" />
+    </ActivatorContent>
+    <ChildContent>
+        <MudCard Elevation="0" Class="mt-n2">
+            <MudCardHeader>
+                <CardHeaderAvatar>
+                    <MudIcon Icon="@Icons.Material.Filled.AccountCircle" Color="Color.Inherit" />
+                </CardHeaderAvatar>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.body2">@_appStateManager.CurrentUsername</MudText>
+                    @*<MudText Typo="Typo.caption">@Role</MudText>*@
+                </CardHeaderContent>
+            </MudCardHeader>
+        </MudCard>
+        <MudDivider Class="mb-1" />
+        <MudListItem Text="Logout" Icon="@Icons.Material.Filled.PowerSettingsNew" OnClick="HandleLogout" />
+    </ChildContent>
+</MudMenu>
+
+@code {
+
+    [Parameter] 
+    public EventCallback<MouseEventArgs> OnLogoutClick { get; set; }
+
+    private async void HandleLogout() => await OnLogoutClick.InvokeAsync();
+}
